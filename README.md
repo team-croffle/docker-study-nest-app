@@ -9,10 +9,7 @@
 - **Package Manager**: Yarn (Berry)
 - **Containerization**: Docker
 
-## 🐳 Docker로 컨테이너 실행하기 (과제)
-
-이 프로젝트는 Docker 스터디를 위해 `Dockerfile`이 `.gitignore`에 추가되어 있어 저장소에 포함되어 있지 않습니다.
-여러분이 직접 `Dockerfile`을 작성하여 빌드하고 실행해 보세요!
+## 🐳 Docker로 컨테이너 실행하기
 
 ### 1. Dockerfile 작성하기
 
