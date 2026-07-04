@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { eq } from 'drizzle-orm';
 import { DB_CONNECTION } from '../db/database.provider';
@@ -7,6 +7,8 @@ import type { CreateNoteDto, Note, UpdateNoteDto } from './note.dto';
 
 @Injectable()
 export class NotesService {
+  private readonly logger = new Logger(NotesService.name);
+
   constructor(@Inject(DB_CONNECTION) private readonly db: NodePgDatabase<typeof schema>) {}
 
   async findAll(): Promise<Note[]> {
@@ -36,6 +38,7 @@ export class NotesService {
       .returning()
       .then((res) => res[0]);
 
+    this.logger.log(`Created new note with id: ${newNote.id}`);
     return newNote;
   }
 
@@ -54,6 +57,8 @@ export class NotesService {
     if (!updatedNote) {
       throw new NotFoundException(`Note with id ${id} not found`);
     }
+
+    this.logger.log(`Updated note with id: ${id}`);
     return updatedNote;
   }
 
@@ -67,5 +72,7 @@ export class NotesService {
     if (!deletedNote) {
       throw new NotFoundException(`Note with id ${id} not found`);
     }
+
+    this.logger.log(`Deleted note with id: ${id}`);
   }
 }
